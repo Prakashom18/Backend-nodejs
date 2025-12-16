@@ -1,5 +1,24 @@
 {
   "dependencies": {
     "express": "^5.2.1"
-  }
+  },
+  "name": "javascript-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "day1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Prakashom18/Backend-nodejs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Prakashom18/Backend-nodejs/issues"
+  },
+  "homepage": "https://github.com/Prakashom18/Backend-nodejs#readme"
 }
