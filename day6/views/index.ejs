@@ -10,8 +10,8 @@
     <div class="main w-full min-h-screen bg-zinc-900">
         <div class="form p-10 text-white">
             <form action="/create" method="post">
-                <input type="text" name="title" class="block w-full rounded-md px-5 py-2 bg-zinc-800  " id="" placeholder="Title">
-                <textarea name="details" id=""placeholder="text here" class="block w-full rounded-md resize-none  px-5 py-5 bg-zinc-800 mt-2 "></textarea>
+                <input type="text" name="title" class="block w-full rounded-md px-5 py-2 bg-zinc-800 outline-none " id="" placeholder="Title">
+                <textarea name="details" id=""placeholder="text here" class="block w-full rounded-md resize-none  px-5 py-5 bg-zinc-800 mt-2 outline-none "></textarea>
                 <input type="submit" value="Create task" class="mt-2 bg-blue-600 px-2 py-2 ">
             </form>
 
@@ -28,7 +28,7 @@
                 <h1 class="text-white text-3xl tracking-tighter"><%= val%></h1>
                 <div class="flex w-full justify-between items-center  mt-3">
                     <a href="/file/<%= val %>" class="text-blue-500 inline-block "> Read more</a>
-                <a href="/edit/<%=val%>" class="text-yellow-700">Edit</a>
+                <a href="/edit/<%=val%>" class="text-yellow-700">Edit Filename</a>
                 </div>
                 
 

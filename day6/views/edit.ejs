@@ -10,13 +10,13 @@
     <div class="main min-h-screen w-full text-white bg-zinc-900 p-5 ">
         
         <a href="/" class="text-blue-600 "> Back to main </a>
-        <form action="">
+        <form action="/edit" method="post">
 
-        <input type="text" name="title" class="block w-1/4 rounded-md px-5 py-2 bg-zinc-800 mt-2 outline-none " id="" value="<%=filename%>.txt" name="prevoius">
+        <input type="text"  class="block w-1/4 rounded-md px-5 py-2 bg-zinc-800 text-zinc-500 mt-2 outline-none " id="" value="<%=filename%>" name="prevoius" >
        
-        <input type="text" name="title" class="block w-1/4 rounded-md px-5 py-2 bg-zinc-800 mt-2  outline-none" id="" placeholder="New Title" name="NewName">
+        <input type="text" class="block w-1/4 rounded-md px-5 py-2 bg-zinc-800 mt-2  outline-none" id="" placeholder="New Title" name="new">
        
-        <input type="submit" value="Create task" class="mt-2 bg-yellow-600 px-2 py-2 rounded-md ">
+        <input type="submit" value="Update Name" class="mt-2 bg-yellow-600 px-2 py-2 rounded-md ">
              
 
         </form>
