@@ -5,7 +5,7 @@ const userModel = require('./userModel');
 
 const app = express();
 
-// app.use(express.json());
+app.use(express.json());
 app.use(express.static(path.join(__dirname,'public')));
 app.use(express.urlencoded({extended:true}))
 
@@ -39,6 +39,11 @@ app.get('/delete',async function(req,res){
   let deleteUser = await userModel.findOneAndDelete({username :"bikash"})
     res.send(`Hey ${deleteUser} your acount is deleted`);
   
+})
+
+app.get('/readone',async function(req,res){
+  let oneuser = await userModel.findOne({username:"harsh"})
+  res.send(oneuser);
 })
 
 app.listen(3000,function(err){
