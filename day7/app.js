@@ -5,7 +5,7 @@ const userModel = require('./userModel');
 
 const app = express();
 
-app.use(express.json());
+// app.use(express.json());
 app.use(express.static(path.join(__dirname,'public')));
 app.use(express.urlencoded({extended:true}))
 
@@ -24,6 +24,11 @@ app.get("/create", async (req, res) => {
   })
   res.send(createdUser);
 });
+
+app.get('/update',async function(req,res){
+   let updateduser = await userModel.findOneAndUpdate({username : "harsh"}, {username:"bikash"}, {new:true})
+    res.send(updateduser)
+})
 
 
 app.listen(3000,function(err){
