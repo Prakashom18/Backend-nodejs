@@ -18,9 +18,9 @@ app.get("/", (req, res) => {
 
 app.get("/create", async (req, res) => {
   let createdUser = await userModel.create({
-    name : "harsh",
-    email: "harsh@gmail.com",
-    username:"harsh"
+    name : "harshita",
+    email: "harshita@gmail.com",
+    username:"harshita"
   })
   res.send(createdUser);
 });
@@ -30,6 +30,16 @@ app.get('/update',async function(req,res){
     res.send(updateduser)
 })
 
+app.get('/read', async function(req,res){
+  let readuser = await userModel.find();
+  res.send(readuser);
+})
+
+app.get('/delete',async function(req,res){
+  let deleteUser = await userModel.findOneAndDelete({username :"bikash"})
+    res.send(`Hey ${deleteUser} your acount is deleted`);
+  
+})
 
 app.listen(3000,function(err){
     console.log("running on port 3000")
