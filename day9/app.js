@@ -42,6 +42,16 @@ app.get('/login',(req,res)=>{
     res.render('login');
 })
 
+app.post('/login',async (req,res)=>{
+    let user = await userModel.findOne({email:req.body.email})
+    if(!user) return res.send("something went wrong");
+    
+    bcrypt.compare(req.body.password,user.password,function(err,result){
+        if(result) res.send('yes you can login');
+        else res.send('Invalid Password or Email')
+    })
+})
+
 app.get('/logout',function(req,res){
     res.cookie("token","");
     res.redirect('/');
