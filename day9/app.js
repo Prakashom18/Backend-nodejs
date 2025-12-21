@@ -1,7 +1,10 @@
 const express = require('express')
 const cookieParser = require('cookie-parser');
 const path = require('path')
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
 const app = express();
+const userModel = require('./models/userModel')
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
@@ -13,5 +16,28 @@ app.set('view engine','ejs');
 app.get('/',(req,res)=>{
     res.render("index")
 })
+
+app.post('/create',  (req,res)=>{
+    let {username,email,password,age} = req.body;
+ 
+    bcrypt.genSalt(10,(err,salt)=>{
+        bcrypt.hash(password,salt,async (err,hash)=>{
+            
+            let createdUser = await userModel.create({
+                username,
+                email,
+                password : hash,
+                age
+            })
+        let token = jwt.sign({email},"secretkey");
+        res.cookie("token",token)
+        res.send(createdUser)
+        })
+    })
+
+   
+})
+
+
 
 app.listen(3000);

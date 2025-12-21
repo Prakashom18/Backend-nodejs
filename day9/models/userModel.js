@@ -8,3 +8,5 @@ const userSchema = mongoose.Schema({
     password : String,
     age : Number
 })
+
+module.exports = mongoose.model('user',userSchema);
