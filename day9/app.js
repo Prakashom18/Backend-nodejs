@@ -38,6 +38,15 @@ app.post('/create',  (req,res)=>{
    
 })
 
+app.get('/login',(req,res)=>{
+    res.render('login');
+})
+
+app.get('/logout',function(req,res){
+    res.cookie("token","");
+    res.redirect('/');
+})
+
 
 
 app.listen(3000);
