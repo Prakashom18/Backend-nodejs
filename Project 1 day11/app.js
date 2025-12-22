@@ -16,8 +16,22 @@ app.get('/',(req,res)=>{
     res.render('index');
 })
 
-app.post('/register',(req,res)=>{
+app.post('/register',async (req,res)=>{
+    let {username,name,age,email,password} = req.body;
 
+    let user = await userModel.findOne({email});
+    if(user) return res.status(409).send("User already Exists");
+
+    bcrypt.genSalt(10, (err,salt)=>{
+        bcrypt.hash(password,salt,async (err,hash)=>{
+          let user =   await userModel.create({
+                username,
+                name,
+                age,
+                password : hash
+            })
+        })
+    })
 })
 
 app.get('/login',(req,res)=>{
