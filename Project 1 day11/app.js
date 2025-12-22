@@ -2,8 +2,10 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser');
 const userModel = require('./models/userModel')
+const postModel = require('./models/postModel')
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
@@ -28,19 +30,36 @@ app.post('/register',async (req,res)=>{
                 username,
                 name,
                 age,
+                email,
                 password : hash
             })
+           let token =  jwt.sign({email:email,userid : user._id},"secretkey");
+            res.cookie("token",token);
+            res.send('registered')
         })
     })
 })
 
 app.get('/login',(req,res)=>{
-    res.send('Login Page')
+    res.render('login')
 })
 
+app.post('/login',async (req,res)=>{
+    let {email,password} = req.body;
 
+    let user = await userModel.findOne({email});
+    if(!user) return res.status(500).send("Something went wrong");
+    bcrypt.compare(password,user.password,(err,result)=>{
+        if(result) res.status(200).send("You can login");
+        else res.redirect('/login')
+    
+    })
+})
 
-
+app.get('/logout',(req,res)=>{
+    res.cookie("token","");
+    res.redirect("Login")
+})
 
 app.listen(3000,(err)=>{
     console.log('running on port 3000');
