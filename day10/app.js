@@ -23,6 +23,17 @@ app.get('/create',async (req,res)=>{
     res.send(user)
 })
 
+app.get('/post/create',async (req,res)=>{
+  let post = await  postModel.create({
+        postdata : "hello bhai logg",
+        user : "6948354d1b69c27840d500a6"
+    })
+   let user  = await userModel.findOne({_id:"6948354d1b69c27840d500a6"})
+   user.posts.push(post._id);
+   await user.save();
+    res.send({post,user});
+})
+
 
 app.listen(3000,(err)=>{
     console.log("running on port 3000");
