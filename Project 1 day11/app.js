@@ -40,7 +40,7 @@ app.post('/register',async (req,res)=>{
     })
 })
 
-app.get('/login',(req,res)=>{
+app.get('/login',isLoggedin,(req,res)=>{
     res.render('login')
 })
 
@@ -60,6 +60,16 @@ app.get('/logout',(req,res)=>{
     res.cookie("token","");
     res.redirect("Login")
 })
+
+function isLoggedin(req,res,next){
+   if(req.cookies.token === ""){
+    res.send("You must be logged in");
+   }
+   else{
+    jwt.sign()
+   }
+    next();
+}
 
 app.listen(3000,(err)=>{
     console.log('running on port 3000');
