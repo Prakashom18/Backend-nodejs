@@ -40,7 +40,7 @@ app.post('/register',async (req,res)=>{
     })
 })
 
-app.get('/login',isLoggedin,(req,res)=>{
+app.get('/login',(req,res)=>{
     res.render('login')
 })
 
@@ -50,10 +50,22 @@ app.post('/login',async (req,res)=>{
     let user = await userModel.findOne({email});
     if(!user) return res.status(500).send("Something went wrong");
     bcrypt.compare(password,user.password,(err,result)=>{
-        if(result) res.status(200).send("You can login");
-        else res.redirect('/login')
+        if(result) {
+           
+            let token = jwt.sign({email:email, userid:user._id},"secretkey")
+            res.cookie("token",token);
+            res.status(200).send("You can login");
+        }
+        else {
+            res.redirect('/login')
+        }
     
     })
+})
+
+app.get('/profile',isLoggedin,(req,res)=>{
+    console.log(req.user);
+    res.send('profile');
 })
 
 app.get('/logout',(req,res)=>{
@@ -66,7 +78,8 @@ function isLoggedin(req,res,next){
     res.send("You must be logged in");
    }
    else{
-    jwt.sign()
+   let data = jwt.verify(req.cookies.token,"secretkey");
+   req.user = data;
    }
     next();
 }
