@@ -69,6 +69,18 @@ app.get('/profile',isLoggedin,async (req,res)=>{
     res.render('profile',{user})
 })
 
+app.post('/post',isLoggedin,async (req,res)=>{
+    let user = await userModel.findOne({email:req.user.email})
+    let {content} = req.body;
+    let post = await postModel.create({
+        user : user._id,
+        content
+    })
+    user.posts.push(post._id);
+    await user.save();
+    res.redirect('/profile')
+})
+
 app.get('/logout',(req,res)=>{
     res.cookie("token","");
     res.redirect("Login")
