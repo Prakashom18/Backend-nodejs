@@ -63,9 +63,12 @@ app.post('/login',async (req,res)=>{
     })
 })
 
+
+// for the finding and attaching the posts to the user
+// await userModel.findOne({email:req.user.email}).populate("posts");
+
 app.get('/profile',isLoggedin,async (req,res)=>{
     let user = await userModel.findOne({email:req.user.email}).populate("posts")
-    
     res.render('profile',{user})
 })
 
@@ -79,6 +82,19 @@ app.post('/post',isLoggedin,async (req,res)=>{
     user.posts.push(post._id);
     await user.save();
     res.redirect('/profile')
+})
+
+app.get('/like/:id',isLoggedin,async (req,res)=>{
+    let post = await postModel.findOne({_id:req.params.id}).populate("user");
+    if(post.likes.indexOf(req.user.userid)===-1){
+        post.likes.push(req.user.userid);
+    await post.save();   
+    }
+     
+    console.log(req.user);
+    res.redirect("/profile")  
+    
+
 })
 
 app.get('/logout',(req,res)=>{
