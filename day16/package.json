@@ -9,5 +9,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "commonjs",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "multer": "^2.0.2"
+  }
 }
