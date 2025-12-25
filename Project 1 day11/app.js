@@ -100,6 +100,17 @@ app.get('/like/:id',isLoggedin,async (req,res)=>{
 
 })
 
+app.get('/edit/:id',isLoggedin,async (req,res)=>{
+    let post = await postModel.findOne({_id:req.params.id}).populate("user");
+    // console.log({post})
+    res.render('edit',{post});
+})
+
+app.post('/update/:id',isLoggedin, async (req,res)=>{
+    let post = await postModel.findOneAndUpdate({_id:req.params.id},{content:req.body.content}).populate("user")
+    res.redirect("/profile");
+})
+
 app.get('/logout',(req,res)=>{
     res.cookie("token","");
     res.redirect("Login")
